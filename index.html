@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Загрузите файл</h1>
+<form id="uploadForm" enctype="multipart/form-data">
+    <label>
+        <input type="text" name="name">
+    </label>
+    <input type="file" name="files" multiple required>
+    <button type="submit">Отправить</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+        document.getElementById('result').innerText = "";
+
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        const response = await fetch('/upload', {
+            method: 'POST',
+            body: formData,
+        });
+
+        document.getElementById('result').innerText = await response.text();
+    });
+</script>
+</body>
+</html>

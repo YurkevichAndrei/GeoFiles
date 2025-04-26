@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта с поиском</title>
+    <link rel="icon" href="icon.png" type="image/x-icon">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Подключение стилей Bootstrap -->
+    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+
+    <!-- Подключение скриптов Bootstrap -->
+    <script src="lib/@popperjs/core/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+    <!-- Подключение библиотеки OpenLayers -->
+    <link rel="stylesheet" href="lib/ol/ol.css"/>
+    <!--    <script src="lib/ol/dist/ol.js"></script>-->
+</head>
+<body>
+<nav class="navbar navbar-light bg-light justify-content-between">
+    <span class="navbar-brand mb-0 h1" style="margin-left: 1%">Карта</span>
+    <form class="form-inline my-2 my-lg-0" style="margin-right: 1%">
+        <input id="search-input" class="form-control mr-sm-2" type="search" placeholder="Поиск..." aria-label="Search">
+    </form>
+</nav>
+
+<div id="map" class="map"></div>
+
+<!-- Боковая панель справа -->
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="uploadOffcanvas" aria-labelledby="uploadOffcanvasLabel" style="margin-top: 54px">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="uploadOffcanvasLabel">Загрузка файла</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form id="uploadForm" enctype="multipart/form-data">
+            <label>
+                <input type="text" name="project" placeholder="Название проекта">
+            </label>
+            <br><br>
+            <input type="file" name="files" multiple required>
+            <br><br>
+            <button type="submit" class="btn btn-primary">Отправить</button>
+        </form>
+        <div id="result"></div>
+    </div>
+</div>
+
+<!-- Кнопка открытия боковой панели -->
+<button class="btn btn-primary float-right" style="position: fixed; bottom: 2%; right: 1%;" data-bs-toggle="offcanvas" data-bs-target="#uploadOffcanvas" aria-controls="uploadOffcanvas">Открыть форму загрузки</button>
+
+<!-- Боковая панель слева -->
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="dataListOffcanvas" aria-labelledby="dataListOffcanvasLabel" style="margin-top: 54px">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="dataListOffcanvasLabel">Список данных</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+    </div>
+    <div class="offcanvas-body">
+        <ul id="data-list" class="list-group list-unstyled"></ul>
+    </div>
+</div>
+
+<!-- Кнопка открытия боковой панели -->
+<button id="btnList" class="btn btn-primary" style="position: fixed; bottom: 2%; left: 1%;" data-bs-toggle="offcanvas" data-bs-target="#dataListOffcanvas" aria-controls="dataListOffcanvas">Открыть список</button>
+
+
+<script src="lib/ol/dist/ol.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

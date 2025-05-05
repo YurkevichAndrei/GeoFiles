@@ -1,0 +1,126 @@
+body {
+    height: 90%;
+}
+
+/* Стили для карты */
+.map {
+    height: calc(100vh - 56px);
+    width: 100%;
+}
+
+/* Иерархия по z-index:
+   1. Панель умного поиска (2000)
+   2. Боковые панели (1500)
+   3. Боковые кнопки (1000)
+*/
+
+/* Стили для плавной анимации панели поиска */
+#smartSearchPanel {
+    position: fixed;
+    bottom: -100px;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    z-index: 2000;
+    transition: bottom 0.3s ease;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#smartSearchPanel.show {
+    bottom: 0;
+}
+
+/* Стили для кнопок */
+.bottom-buttons {
+    position: fixed;
+    bottom: 20px;
+    transition: bottom 0.3s ease;
+    z-index: 1000;
+}
+
+.bottom-buttons.with-panel {
+    bottom: 80px;
+}
+
+#btnList {
+    left: 1%;
+}
+
+.btn-upload {
+    right: 1%;
+}
+
+/* Боковые панели */
+.offcanvas {
+    z-index: 1500;
+}
+
+/* Навигационная панель */
+.navbar {
+    z-index: 2001;
+}
+
+/* Скрытие ненужных элементов в режиме умного поиска */
+.smart-search-mode #searchTabs,
+.smart-search-mode #search-panel {
+    display: none !important;
+}
+
+.smart-search-mode #results-panel {
+    display: block !important;
+}
+
+
+/* Основные стили для панели поиска */
+#smartSearchPanel {
+    position: fixed;
+    bottom: -100px;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    z-index: 2000;
+    transition: bottom 0.3s ease;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    height: 60px; /* Фиксированная высота */
+}
+
+/* Стиль для отображения панели */
+#smartSearchPanel.show {
+    bottom: 0;
+}
+
+/* Стили для корректировки положения боковых панелей */
+.offcanvas {
+    transition: bottom 0.3s ease !important;
+}
+
+.offcanvas.with-search-panel {
+    bottom: 60px !important;
+}
+
+/* Стили для кнопок */
+.bottom-buttons.with-panel {
+    bottom: 80px !important;
+}
+
+
+/* Стили для валидации */
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+
+.invalid-feedback {
+    display: none;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #dc3545;
+}
+
+.file{
+    padding-right: 100px !important;
+}

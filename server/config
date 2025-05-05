@@ -1,0 +1,24 @@
+{
+    "server": {
+        "host": "127.0.0.1",
+        "port": "5000"
+    },
+    "database": {
+        "url": "postgres://user:pass@localhost:5432/spatial_db"
+    },
+    "type_files": [
+        {
+            "type": "raster",
+            "formats": [
+                "tif"
+            ]
+        },
+        {
+            "type": "vector",
+            "formats": [
+                "kml",
+                "shp"
+            ]
+        }
+    ]
+}

@@ -12,10 +12,23 @@ import (
 	"strings"
 )
 
-const dbConnStr = "port=5433 user=postgres password=a6803884 dbname=geoapp sslmode=disable"
+type DataBase struct {
+	Host     string `json:"host"`
+	Port     string `json:"port"`
+	User     string `json:"user"`
+	Password string `json:"password"`
+	Database string `json:"dbname"`
+}
+
+var dbConnStr = "port=5433 user=postgres password=a6803884 dbname=geoapp sslmode=disable"
 
 // ConnectDB соединение с БД
 func ConnectDB(connectInfo string) (*sql.DB, error) {
+	if Config.DB.Host != "" && Config.DB.Port != "" && Config.DB.User != "" &&
+		Config.DB.Password != "" && Config.DB.Database != "" {
+		connectInfo = fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+			Config.DB.Host, Config.DB.Port, Config.DB.User, Config.DB.Password, Config.DB.Database)
+	}
 	db, err := sql.Open("postgres", connectInfo)
 	if err != nil {
 		return nil, err
@@ -34,6 +47,11 @@ func (file File) FileToPostgis() {
 	filepathList := strings.Split(filepath.Base(file.Path), ".")
 
 	if file.TypeFile == "tif" {
+		epsg, err := getEpsgRaster(file.Path)
+		if err != nil {
+			log.Fatalln(err)
+		}
+
 		dir, err := existOrNewPath(filepath.Dir(file.Path), "1x1")
 		if err != nil {
 			log.Fatalln("Не удалось получить директорию:", err)
@@ -107,7 +125,7 @@ func (file File) FileToPostgis() {
 
 		fmt.Println("Изображение успешно сохранено в базу.")
 
-		fileToGeoserver(filePath1x1, filepathList[0])
+		fileToGeoserver(filePath1x1, filepathList[0], epsg)
 	}
 	if file.TypeFile == "kml" {
 		epsg, err := getEpsgVector(file.Path)

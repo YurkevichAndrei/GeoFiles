@@ -1,5 +1,5 @@
 /*!
-  * Bootstrap config.js v5.3.3 (https://getbootstrap.com/)
+  * Bootstrap config.json.js v5.3.3 (https://getbootstrap.com/)
   * Copyright 2011-2024 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
@@ -11,7 +11,7 @@
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap util/config.js
+   * Bootstrap util/config.json.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -65,4 +65,4 @@
   return Config;
 
 }));
-//# sourceMappingURL=config.js.map
+//# sourceMappingURL=config.json.js.map

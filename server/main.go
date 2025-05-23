@@ -7,6 +7,8 @@ import (
 )
 
 func main() {
+	config()
+
 	// загрузка файлов на сервер
 	http.HandleFunc("/server/upload", uploadFile)
 
@@ -16,6 +18,7 @@ func main() {
 	// скачивание файла клиентом с сервера
 	http.HandleFunc("/server/download/", getFile)
 
-	fmt.Println("Сервер запущен на 127.0.0.1:5000")
-	log.Fatal(http.ListenAndServe("127.0.0.1:5000", nil))
+	fmt.Println(fmt.Sprintf("Сервер запущен на %s:%s", Config.ServerConfig.Host, Config.ServerConfig.Port))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf("%s:%s", Config.ServerConfig.Host, Config.ServerConfig.Port),
+		nil))
 }

@@ -114,7 +114,7 @@ import {warn} from './console.js';
  */
 
 /**
- * Object literal with config options for the map.
+ * Object literal with config.json options for the map.
  * @typedef {Object} MapOptions
  * @property {Collection<import("./control/Control.js").default>|Array<import("./control/Control.js").default>} [controls]
  * Controls initially added to the map. If not specified,

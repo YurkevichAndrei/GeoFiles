@@ -1,11 +1,14 @@
-from transformers import pipeline
+from transformers import pipeline, AutoTokenizer, AutoModelForTokenClassification, BertForTokenClassification
 
 
 class NLPExtractor:
     def __init__(self):
+        tokenizer = AutoTokenizer.from_pretrained("botryan96/GeoBERT")
+        model = BertForTokenClassification.from_pretrained("botryan96/GeoBERT", from_tf=True)
         self.model = pipeline(
             "ner",
-            model="bert-base-multilingual-cased",  # или ваша GeoBERTA
+            model=model,
+            tokenizer=tokenizer,
             aggregation_strategy="simple"
         )
 

@@ -15,6 +15,8 @@ type Configuration struct {
 	DirNameForFiles string      `json:"dir_name_for_files"`
 	ServerConfig    Server      `json:"server"`
 	DB              DataBase    `json:"database"`
+	Geoserver       GeoServer   `json:"geoserver"`
+	AI              Server      `json:"ai"`
 	TypesFiles      []TypeFiles `json:"type_files"`
 }
 

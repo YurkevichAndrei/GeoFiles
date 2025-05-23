@@ -15,7 +15,7 @@ import XYZ from './XYZ.js';
  * @property {number} [maxZoom=18] Max zoom.
  * @property {number} [minZoom] Minimum zoom.
  * @property {boolean} [wrapX=true] Whether to wrap the world horizontally.
- * @property {Object} [config] If using anonymous maps, the CartoDB config to use. See
+ * @property {Object} [config] If using anonymous maps, the CartoDB config.json to use. See
  * https://carto.com/developers/maps-api/guides/anonymous-maps/
  * for more detail.
  * If using named maps, a key-value lookup with the template parameters.
@@ -88,7 +88,7 @@ class CartoDB extends XYZ {
   }
 
   /**
-   * Returns the current config.
+   * Returns the current config.json.
    * @return {!Object} The current configuration.
    * @api
    */
@@ -97,9 +97,9 @@ class CartoDB extends XYZ {
   }
 
   /**
-   * Updates the carto db config.
+   * Updates the carto db config.json.
    * @param {Object} config a key-value lookup. Values will replace current values
-   *     in the config.
+   *     in the config.json.
    * @api
    */
   updateConfig(config) {
@@ -108,7 +108,7 @@ class CartoDB extends XYZ {
   }
 
   /**
-   * Sets the CartoDB config
+   * Sets the CartoDB config.json
    * @param {Object} config In the case of anonymous maps, a CartoDB configuration
    *     object.
    * If using named maps, a key-value lookup with the template parameters.

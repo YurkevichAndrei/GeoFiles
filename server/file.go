@@ -19,9 +19,14 @@ type File struct {
 	Project  string `json:"project"`
 }
 
-type typeFile struct {
-	typeName  string
-	extention string
+// type TypeFile struct {
+// 	typeName  string
+// 	extention string
+// }
+
+type TypeFiles struct {
+	TypeName string   `json:"type"`
+	Formats  []string `json:"formats"`
 }
 
 // Функция скачивания файла на сервер
@@ -65,16 +70,16 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 		filename := fileHeader.Filename
 
 		// Сохраняем файл на диск
-		dir, err := os.Getwd()
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			log.Fatalln("Не удалось получить текущую директорию:", err)
-		}
+		// dir, err := os.Getwd()
+		// if err != nil {
+		// 	http.Error(w, err.Error(), http.StatusInternalServerError)
+		// 	log.Fatalln("Не удалось получить текущую директорию:", err)
+		// }
 		// TODO тут нужно вводить нужный путь в зависимости от того где запущена программа
 		// dir := "C:/ProgramData/GeoServer/data/test"
 
 		// проверка наличия и создание папки uploads
-		dir, err = existOrNewPath(dir, "uploads")
+		dir, err := existOrNewPath(Config.DirNameForFiles, "uploads")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			log.Fatalln("Не удалось получить директорию:", err)
@@ -262,9 +267,20 @@ func getEpsgRaster(pathFile string) (string, error) {
 
 	if len(match) > 1 {
 		if match[0] == "-1" {
-			return "", fmt.Errorf("Не удалось найти значение EPSG")
+			return "", fmt.Errorf("не удалось найти значение EPSG")
 		}
 		return match[0], nil
 	}
-	return "", fmt.Errorf("Не удалось найти значение EPSG")
+	return "", fmt.Errorf("не удалось найти значение EPSG")
+}
+
+func (file File) getTypeFile() (string, error) {
+	for _, tf := range Config.TypesFiles {
+		for _, format := range tf.Formats {
+			if file.TypeFile == format {
+				return tf.TypeName, nil
+			}
+		}
+	}
+	return "", fmt.Errorf("не удалось найти тип файла")
 }

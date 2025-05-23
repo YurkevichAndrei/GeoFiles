@@ -451,7 +451,7 @@ declare class SentinelHub extends DataTileSource<import("../DataTile.js").defaul
      * If an object with `clientId` and `clientSecret` is provided, an access token will be fetched
      * and used with processing requests.  Alternatively, an access token can be supplied directly.
      *
-     * @param {AuthConfig|string} auth The auth config or access token.
+     * @param {AuthConfig|string} auth The auth config.json or access token.
      * @api
      */
     setAuth(auth: AuthConfig | string): Promise<void>;

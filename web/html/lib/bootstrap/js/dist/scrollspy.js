@@ -64,7 +64,7 @@
     constructor(element, config) {
       super(element, config);
 
-      // this._element is the observablesContainer and config.target the menu links wrapper
+      // this._element is the observablesContainer and config.json.target the menu links wrapper
       this._targetLinks = new Map();
       this._observableSections = new Map();
       this._rootElement = getComputedStyle(this._element).overflowY === 'visible' ? null : this._element;

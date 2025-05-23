@@ -17,7 +17,7 @@ export default Interaction;
  */
 export type InteractionOnSignature<Return> = import("../Observable").OnSignature<import("../Observable").EventTypes, import("../events/Event.js").default, Return> & import("../Observable").OnSignature<import("../ObjectEventType").Types | "change:active", import("../Object").ObjectEvent, Return> & import("../Observable").CombinedOnSignature<import("../Observable").EventTypes | import("../ObjectEventType").Types | "change:active", Return>;
 /**
- * Object literal with config options for interactions.
+ * Object literal with config.json options for interactions.
  */
 export type InteractionOptions = {
     /**
@@ -38,7 +38,7 @@ export type InteractionOptions = {
  *     'change:active', Return>} InteractionOnSignature
  */
 /**
- * Object literal with config options for interactions.
+ * Object literal with config.json options for interactions.
  * @typedef {Object} InteractionOptions
  * @property {function(import("../MapBrowserEvent.js").default):boolean} [handleEvent]
  * Method called by the map to notify the interaction that a browser event was

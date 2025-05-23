@@ -9,8 +9,13 @@ import (
 	"net/http"
 )
 
-// coverage структура для хранения данных coverage
-type coverage struct {
+type GeoServer struct {
+	Server
+	Workspace
+}
+
+// Coverage структура для хранения данных Coverage
+type Coverage struct {
 	Name             string     `xml:"name"`
 	NativeName       string     `xml:"nativeName"`
 	SRS              string     `xml:"srs"`
@@ -26,34 +31,34 @@ type Entry struct {
 	String []string `xml:"string"`
 }
 
-// coverageStore структура для хранения информации о хранилище
-type coverageStore struct {
+// CoverageStore структура для хранения информации о хранилище
+type CoverageStore struct {
 	Name      string    `xml:"name"`
-	Workspace workspace `xml:"workspace"`
+	Workspace Workspace `xml:"workspace"`
 	Type      string    `xml:"type"`
 	Url       string    `xml:"url"`
 	Enabled   bool      `xml:"enabled"`
 }
 
-type workspace struct {
+type Workspace struct {
 	Name string `xml:"name"`
 }
 
-type featureType struct {
+type FeatureType struct {
 	Name             string `xml:"name"`
 	NativeName       string `xml:"nativeName"`
 	SRS              string `xml:"srs"`
 	ProjectionPolicy string `xml:"projectionPolicy"`
 }
 
-func fileToGeoserver(pathFile string, nameFile string) {
+func fileToGeoserver(pathFile string, nameFile string, epsg string) {
 	contentType := "application/xml"
 
-	ws := workspace{
+	ws := Workspace{
 		Name: "geoapp",
 	}
 
-	store := coverageStore{
+	store := CoverageStore{
 		Name:      nameFile,
 		Workspace: ws,
 		Type:      "GeoTIFF",
@@ -79,17 +84,15 @@ func fileToGeoserver(pathFile string, nameFile string) {
 		},
 	}
 
-	cv := coverage{
+	cv := Coverage{
 		Name:             nameFile,
 		NativeName:       fmt.Sprintf("%s_1x1", nameFile),
-		SRS:              "EPSG:32641",
+		SRS:              fmt.Sprintf("EPSG:%s", epsg),
 		ProjectionPolicy: "FORCE_DECLARED",
 		Params: Parameters{
 			En: entry,
 		},
 	}
-
-	// TODO для того, чтобы получить проекцию gdalsrsinfo -o epsg your_file.tif
 
 	outputXml, err = xml.MarshalIndent(cv, "", "  ")
 	if err != nil {
@@ -101,7 +104,7 @@ func fileToGeoserver(pathFile string, nameFile string) {
 }
 
 func postgisToGeoserver(tableName string, epsg string) {
-	feature := featureType{
+	feature := FeatureType{
 		Name:             tableName,
 		NativeName:       tableName,
 		SRS:              fmt.Sprintf("EPSG:%s", epsg),

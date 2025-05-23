@@ -1,0 +1,38 @@
+{
+    "dir_name_for_files": "D:\\UNIVERSITY\\PISH\\2kurs\\Diplom\\GeoFiles\\server",
+    "server": {
+        "host": "127.0.0.1",
+        "port": "5000"
+    },
+    "database": {
+        "host": "127.0.0.1",
+        "port": "5433",
+        "user": "postgres",
+        "password": "a6803884",
+        "dbname": "geoapp"
+    },
+    "geoserver": {
+        "host": "127.0.0.1",
+        "port": "5151",
+        "name": "geoapp"
+    },
+    "ai": {
+        "host": "127.0.0.1",
+        "port": "5005"
+    },
+    "type_files": [
+        {
+            "type": "raster",
+            "formats": [
+                "tif"
+            ]
+        },
+        {
+            "type": "vector",
+            "formats": [
+                "kml",
+                "shp"
+            ]
+        }
+    ]
+}

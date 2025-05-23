@@ -4,10 +4,10 @@
  * @param {!Object} config Configuration properties for the layer.  Defaults for
  *                  the layer will apply if not provided.
  *
- * Required config properties:
+ * Required config.json properties:
  *  - layer - {string} The layer identifier.
  *
- * Optional config properties:
+ * Optional config.json properties:
  *  - matrixSet - {string} The matrix set identifier, required if there is
  *       more than one matrix set in the layer capabilities.
  *  - projection - {string} The desired CRS when no matrixSet is specified.

@@ -267,7 +267,7 @@ declare class Google extends TileImage {
     /**
      * Exposed here so it can be overridden in the tests.
      * @param {string} url The URL.
-     * @param {RequestInit} config The config.
+     * @param {RequestInit} config The config.json.
      * @return {Promise<Response>} A promise that resolves with the response.
      */
     fetchSessionToken(url: string, config: RequestInit): Promise<Response>;

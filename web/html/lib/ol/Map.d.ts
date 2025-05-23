@@ -149,7 +149,7 @@ export type MapObjectEventTypes = import("./ObjectEventType").Types | "change:la
  */
 export type MapEventHandler<Return> = import("./Observable").OnSignature<import("./Observable").EventTypes, import("./events/Event.js").default, Return> & import("./Observable").OnSignature<MapObjectEventTypes, import("./Object").ObjectEvent, Return> & import("./Observable").OnSignature<import("./MapBrowserEventType").Types, MapBrowserEvent<any>, Return> & import("./Observable").OnSignature<import("./MapEventType").Types, import("./MapEvent").default, Return> & import("./Observable").OnSignature<import("./render/EventType").MapRenderEventTypes, import("./render/Event").default, Return> & import("./Observable").CombinedOnSignature<import("./Observable").EventTypes | MapObjectEventTypes | import("./MapBrowserEventType").Types | import("./MapEventType").Types | import("./render/EventType").MapRenderEventTypes, Return>;
 /**
- * Object literal with config options for the map.
+ * Object literal with config.json options for the map.
  */
 export type MapOptions = {
     /**

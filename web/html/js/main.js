@@ -184,4 +184,78 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Слой для полигонов
+    const vectorLayer = new ol.layer.Vector({
+        source: new ol.source.Vector(),
+        style: new ol.style.Style({
+            fill: new ol.style.Fill({
+                color: 'rgba(0, 0, 255, 0.2)'
+            }),
+            stroke: new ol.style.Stroke({
+                color: 'blue',
+                width: 2
+            })
+        })
+    });
+    map.addLayer(vectorLayer);
+
+    let smartSearchButton = document.getElementById('smartSearchButton');
+
+    smartSearchButton.addEventListener('click', () => searchLocation())
+
+    // Функция поиска города и отрисовки полигона
+    async function searchLocation() {
+        const locationName = document.getElementById('smartSearchInput').value.trim();
+        if (!locationName) return;
+
+        const url = `https://nominatim.openstreetmap.org/search.php?q=${encodeURIComponent(locationName)}&polygon_geojson=1&format=json`;
+
+        try {
+            const response = await fetch(url, {
+                headers: { "User-Agent": "GeoFiles/1.0" } // Требуется Nominatim
+            });
+            const data = await response.json();
+
+            if (data.length === 0) {
+                alert("Место не найдено!");
+                return;
+            }
+
+            const place = data[0];
+            if (!place.geojson) {
+                alert("Полигон не найден, показываю точку");
+                showPoint(place.lon, place.lat, locationName);
+                return;
+            }
+
+            // Очищаем предыдущие данные
+            vectorLayer.getSource().clear();
+
+            // Преобразуем GeoJSON в формат OpenLayers
+            const format = new ol.format.GeoJSON();
+            const features = format.readFeatures(place.geojson, {
+                dataProjection: 'EPSG:4326', // WGS84
+                featureProjection: 'EPSG:3857' // Web Mercator
+            });
+
+            vectorLayer.getSource().addFeatures(features);
+            map.getView().fit(vectorLayer.getSource().getExtent());
+
+        } catch (error) {
+            console.error("Ошибка запроса:", error);
+            alert("Произошла ошибка при загрузке данных");
+        }
+    }
+
+    // Функция для отображения точки, если полигона нет
+    function showPoint(lon, lat, name) {
+        vectorLayer.getSource().clear();
+        const point = new ol.Feature({
+            geometry: new ol.geom.Point(ol.proj.fromLonLat([parseFloat(lon), parseFloat(lat)]))
+        });
+        vectorLayer.getSource().addFeature(point);
+        map.getView().setCenter(ol.proj.fromLonLat([parseFloat(lon), parseFloat(lat)]));
+        map.getView().setZoom(12);
+    }
+
 });

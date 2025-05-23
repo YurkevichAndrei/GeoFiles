@@ -24,7 +24,7 @@ import {getUid} from '../util.js';
  * be clustered together.
  * @property {number} [minDistance=0] Minimum distance in pixels between clusters.
  * Will be capped at the configured distance.
- * By default no minimum distance is guaranteed. This config can be used to avoid
+ * By default no minimum distance is guaranteed. This config.json can be used to avoid
  * overlapping icons. As a tradoff, the cluster feature's position will no longer be
  * the center of all its features.
  * @property {function(FeatureType):(Point|null)} [geometryFunction]

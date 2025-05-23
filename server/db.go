@@ -46,7 +46,13 @@ func ConnectDB(connectInfo string) (*sql.DB, error) {
 func (file File) FileToPostgis() {
 	filepathList := strings.Split(filepath.Base(file.Path), ".")
 
-	if file.TypeFile == "tif" {
+	typeFile, err := file.getTypeFile()
+
+	if err != nil {
+		log.Fatalln("Не удалось определить тип файла:", err)
+	}
+
+	if typeFile == "raster" {
 		epsg, err := getEpsgRaster(file.Path)
 		if err != nil {
 			log.Fatalln(err)
@@ -126,8 +132,7 @@ func (file File) FileToPostgis() {
 		fmt.Println("Изображение успешно сохранено в базу.")
 
 		fileToGeoserver(filePath1x1, filepathList[0], epsg)
-	}
-	if file.TypeFile == "kml" {
+	} else if typeFile == "vector" {
 		epsg, err := getEpsgVector(file.Path)
 		if err != nil {
 			log.Fatalln(err)
